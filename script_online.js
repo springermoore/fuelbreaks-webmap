@@ -9,27 +9,27 @@ var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 });
 
-var esriSat = L.tileLayer(
-  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
-  {
-    maxzoom: 20,
+var esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxzoom: 18,
     attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'
-  }
-);
-
-var labelLayer = L.tileLayer('https://stadiamaps.com{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; Stadia Maps, &copy; Stamen Design, &copy; OpenStreetMap',
-    maxZoom: 20
 });
 
-var googleSat = L.tileLayer(
-  'https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-  {
+var labelLayer = L.tileLayer('https://stadiamaps.com{z}/{x}/{y}{r}.png', {
+    maxZoom: 18,
+    attribution: '&copy; Stadia Maps, &copy; Stamen Design, &copy; OpenStreetMap'
+});
+
+var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
     subdomains: ['mt0','mt1','mt2','mt3'],
     attribution: '© Google'
-  }
-);
+});
+
+var googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+    maxZoom: 20,
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    attribution: 'Map data &copy; Google'
+});
 
 var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     maxZoom: 17,
@@ -50,6 +50,7 @@ var baseMaps = {
     "Esri Satellite Imagery": esriSat,
     "Esri Hybrid Imagery": L.layerGroup([esriSat, labelLayer]),
     "Google Satellite Imagery": googleSat,
+    "Google Hybrid Imagery": googleHybrid,
     "USGS Topographic Map": usgsTopo,
     "OpenTopoMap": topo
 };
@@ -59,7 +60,7 @@ var layerControl = L.control.layers(baseMaps).addTo(map);
 // L.control.layers(baseMaps).addTo(map);
 
 // Load GeoJSON dynamically
-fetch("points.geojson")
+fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/heads/main/points.geojson")
   .then(response => response.json())
   .then(data => {
     const markerColors = {
@@ -75,9 +76,18 @@ fetch("points.geojson")
       "Gasline 2": "#fda000",
 
       "Heights Hill": "#ff00c8",
-      "Hilltop": "#bf1300",
-      "Prospect Heights": "#b02fe3",
-      "Sahalee": "#ffbf00"};
+      "Hilltop": "#ff2108",
+      "Prospect Heights": "#720303",
+      "Sahalee": "#c82d06",
+    
+      "Grandview": "#7300ff",
+      "Moose River": "#ac05c2",
+      "Three Johns North": "#6e1893",
+      "Three Johns Center": "#9746e8",
+      "Three Johns South": "#821cc1",
+      "USFWS Preset": "#3e2c73"};
+
+      
     L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
         const area = feature.properties.name;
@@ -127,7 +137,7 @@ fetch("points.geojson")
   });
 
 // Load line layer with attached 360° videos
-fetch("lines.geojson")
+fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/heads/main/lines.geojson")
   .then(response => response.json())
   .then(lines => {
 
@@ -198,9 +208,16 @@ legend.onAdd = function (map) {
       "Gasline 2": "#fda000",
 
       "Heights Hill": "#ff00c8",
-      "Hilltop": "#bf1300",
-      "Prospect Heights": "#b02fe3",
-      "Sahalee": "#ffbf00"};
+      "Hilltop": "#ff2108",
+      "Prospect Heights": "#720303",
+      "Sahalee": "#c82d06",
+    
+      "Grandview": "#7300ff",
+      "Moose River": "#ac05c2",
+      "Three Johns North": "#470165",
+      "Three Johns Center": "#9746e8",
+      "Three Johns South": "#6f259c",
+      "USFWS Preset": "#3e2c73"};
 
 
     div.innerHTML += "<b>Fuelbreak Legend</b><br>";
