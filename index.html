@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
 
+  <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
 
   <style>
     #map { height: 100vh; }
@@ -38,6 +41,8 @@
       font-size: 18px;
       font-weight: bold;
       border-radius: 5px;
+      width: 350px;
+      text-align: center;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
 
@@ -46,6 +51,14 @@
       font-weight: normal;
       margin-top: 2px;
       color: #444;
+    }
+
+    .leaflet-top.leaflet-left .map-title {
+      position: absolute;
+      left: 100%;
+      top: 10px;
+      z-index: 1000;
+      pointer-events: none;
   }
   </style>
 </head>

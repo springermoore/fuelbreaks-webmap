@@ -1,5 +1,7 @@
 // Initialize map
-var map = L.map('map').setView([61.15, -149.7], 9);
+var map = L.map('map', {
+    fullscreenControl: true
+}).setView([61.15, -149.7], 9);
 
 
 
@@ -14,7 +16,7 @@ var esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/
     attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'
 });
 
-var labelLayer = L.tileLayer('https://stadiamaps.com{z}/{x}/{y}{r}.png', {
+var labelLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_labels/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '&copy; Stadia Maps, &copy; Stamen Design, &copy; OpenStreetMap'
 });
@@ -127,7 +129,8 @@ fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/he
               type: "equirectangular",
               panorama: feature.properties.image_url,
               autoLoad: true,
-              showZoomCtrl: true
+              showZoomCtrl: true,
+              fullscreenButton: true
             });
           }, 200);
         });
