@@ -88,7 +88,7 @@ fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/he
       "USFWS Preset": "#3e2c73"};
 
       
-    L.geoJSON(data, {
+    var pointLayer = L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
         const area = feature.properties.name;
         const color = markerColors[area] || "#000000"; // fallback black
@@ -133,6 +133,7 @@ fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/he
         });
       }
     }).addTo(map);
+    layerControl.addOverlay(pointLayer, "360° Image Points");
     
   });
 
