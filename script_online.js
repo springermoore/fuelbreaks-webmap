@@ -16,9 +16,14 @@ var esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/
     attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics'
 });
 
-var labelLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_labels/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '&copy; Stadia Maps, &copy; Stamen Design, &copy; OpenStreetMap'
+var labelLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{
+    maxZoom: 19,
+    attribution: 'Places © Esri'
+});
+
+var streetLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',{
+    maxZoom: 19,
+    attribution: 'Street labels © Esri'
 });
 
 var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
@@ -50,7 +55,7 @@ osm.addTo(map);
 var baseMaps = {
     "OpenStreetMap": osm,
     "Esri Satellite Imagery": esriSat,
-    "Esri Hybrid Imagery": L.layerGroup([esriSat, labelLayer]),
+    "Esri Hybrid Imagery": L.layerGroup([esriSat, labelLayer, streetLabels]),
     "Google Satellite Imagery": googleSat,
     "Google Hybrid Imagery": googleHybrid,
     "USGS Topographic Map": usgsTopo,
