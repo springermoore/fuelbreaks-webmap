@@ -199,7 +199,7 @@ fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/he
           setTimeout(function () {
             pannellum.viewer(containerId, {
               type: "equirectangular",
-              panorama: feature.properties.image_url,
+              panorama: "https://alaskanrm.com/wp-content/uploads/2026/07/"+feature.properties.filename+"-scaled.jpg",
               autoLoad: true,
               showZoomCtrl: true,
               fullscreenButton: true
