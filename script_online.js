@@ -66,6 +66,73 @@ var baseMaps = {
 var layerControl = L.control.layers(baseMaps).addTo(map);
 // L.control.layers(baseMaps).addTo(map);
 
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "legend");
+    div.id = "legend";
+    var areas = {
+      "Basher 1": "#2ff381",
+      "Basher 2": "#00692c",
+      "Basher 3": "#249754",
+      "Basher 4": "#7cfb98",
+
+      "Hiland Upper": "#68bdf5",
+      "Hiland Lower": "#2182c3",
+
+      "Gasline 1": "#d86609",
+      "Gasline 2": "#fda000",
+
+      "Heights Hill": "#ff00c8",
+      "Hilltop": "#ff2108",
+      "Prospect Heights": "#720303",
+      "Sahalee": "#c82d06",
+    
+      "Grandview": "#7300ff",
+      "Moose River": "#ac05c2",
+      "Three Johns North": "#470165",
+      "Three Johns Center": "#9746e8",
+      "Three Johns South": "#6f259c",
+      "USFWS Preset": "#3e2c73"};
+
+
+    div.innerHTML += "<b>Fuel Treatment Legend</b><br>";
+
+    for (var area in areas) {
+        div.innerHTML +=
+            '<i style="background:' + areas[area] + '"></i> ' +
+            area + "<br>";
+    }
+
+    return div;
+  };
+
+legend.addTo(map);
+
+var title = L.control({ position: "topleft" });
+
+title.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "map-title");
+    div.innerHTML = `
+        360° Tour of Anchorage-Area Fuel Treatments
+        <div class="map-subtitle">Imagery taken by Springer Moore</div>
+    `;
+    return div;
+};
+
+title.addTo(map);
+
+
+map.on("popupopen", function () {
+    document.getElementById("legend").style.display = "none";
+    document.querySelector(".map-title").style.display = "none";
+});
+
+map.on("popupclose", function () {
+    document.getElementById("legend").style.display = "block";
+    document.querySelector(".map-title").style.display = "block";
+});
+
 // Load GeoJSON dynamically
 fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/heads/main/points.geojson")
   .then(response => response.json())
@@ -198,59 +265,3 @@ fetch("https://raw.githubusercontent.com/springermoore/fuelbreaks-webmap/refs/he
     lineLayer.addTo(map);
     layerControl.addOverlay(lineLayer, "360° Video Lines");
   });
-
-
-var legend = L.control({ position: "bottomright" });
-
-legend.onAdd = function (map) {
-    var div = L.DomUtil.create("div", "legend");
-    var areas = {
-      "Basher 1": "#2ff381",
-      "Basher 2": "#00692c",
-      "Basher 3": "#249754",
-      "Basher 4": "#7cfb98",
-
-      "Hiland Upper": "#68bdf5",
-      "Hiland Lower": "#2182c3",
-
-      "Gasline 1": "#d86609",
-      "Gasline 2": "#fda000",
-
-      "Heights Hill": "#ff00c8",
-      "Hilltop": "#ff2108",
-      "Prospect Heights": "#720303",
-      "Sahalee": "#c82d06",
-    
-      "Grandview": "#7300ff",
-      "Moose River": "#ac05c2",
-      "Three Johns North": "#470165",
-      "Three Johns Center": "#9746e8",
-      "Three Johns South": "#6f259c",
-      "USFWS Preset": "#3e2c73"};
-
-
-    div.innerHTML += "<b>Fuelbreak Legend</b><br>";
-
-    for (var area in areas) {
-        div.innerHTML +=
-            '<i style="background:' + areas[area] + '"></i> ' +
-            area + "<br>";
-    }
-
-    return div;
-  };
-
-legend.addTo(map);
-
-var title = L.control({ position: "topleft" });
-
-title.onAdd = function (map) {
-    var div = L.DomUtil.create("div", "map-title");
-    div.innerHTML = `
-        360° Tour of Anchorage-Area Fuelbreaks
-        <div class="map-subtitle">Imagery taken by Springer Moore</div>
-    `;
-    return div;
-};
-
-title.addTo(map);

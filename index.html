@@ -42,8 +42,8 @@
       font-weight: bold;
       border-radius: 5px;
       width: 50%;  
-      max-width: 1000px;  
-      min-width: 350px; 
+      max-width: 500px;  
+      min-width: 250px; 
       text-align: center;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
@@ -59,8 +59,17 @@
       position: absolute;
       left: 100%;
       top: 10px;
-      z-index: 1000;
+      z-index: 500;
       pointer-events: none;
+  }
+
+    .leaflet-popup-pane {
+      z-index: 90000 !important;
+  }  
+
+    .map-title {
+    position: relative;
+    z-index: 1;
   }
   </style>
 </head>
